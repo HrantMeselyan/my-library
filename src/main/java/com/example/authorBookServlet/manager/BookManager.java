@@ -39,7 +39,6 @@ public class BookManager {
     }
 
 
-
     public void save(Book book) {
         String sql = "INSERT INTO book(title,description,price,author_id,img,user_id)Values(?,?,?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -95,7 +94,22 @@ public class BookManager {
         }
     }
 
-    public List<Book> searchByName(String name) {
+    public List<Book> searchByName(String name, int id) {
+        List<Book> bookList = new ArrayList<>();
+        String sql = "SELECT * from book where title LIKE ? AND user_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "%" + name + "%");
+            ps.setInt(2, id);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                bookList.add(getBookFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookList;
+    }
+    public List<Book> searchByNameForAdmin(String name) {
         List<Book> bookList = new ArrayList<>();
         String sql = "SELECT * from book where title LIKE ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
