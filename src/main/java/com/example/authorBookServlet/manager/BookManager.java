@@ -2,6 +2,7 @@ package com.example.authorBookServlet.manager;
 
 import com.example.authorBookServlet.db.DbConnectionProvider;
 import com.example.authorBookServlet.model.Book;
+import com.example.authorBookServlet.model.Type;
 import com.example.authorBookServlet.model.User;
 
 import java.sql.*;
@@ -16,10 +17,16 @@ public class BookManager {
     public List<Book> getAll(User user) {
         List<Book> bookList = new ArrayList<>();
         int id = user.getId();
-        String sql = "SELECT * FROM book WHERE user_id = ? OR ? = 'ADMIN'";
+        String sql;
+        if (user.getType() == Type.ADMIN) {
+            sql = "SELECT * FROM book";
+        } else {
+            sql = "SELECT * FROM book WHERE user_id = ?";
+        }
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1,id);
-            ps.setString(2, user.getType().toString());
+            if (user.getType() != Type.ADMIN) {
+                ps.setInt(1, id);
+            }
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 bookList.add(getBookFromResultSet(resultSet));
@@ -29,6 +36,7 @@ public class BookManager {
         }
         return bookList;
     }
+
 
 
     public void save(Book book) {
