@@ -16,9 +16,10 @@ public class BookManager {
     public List<Book> getAll(User user) {
         List<Book> bookList = new ArrayList<>();
         int id = user.getId();
-        String sql = "SELECT * from book where user_id = ?";
+        String sql = "SELECT * FROM book WHERE user_id = ? OR ? = 'ADMIN'";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1,id);
+            ps.setString(2, user.getType().toString());
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 bookList.add(getBookFromResultSet(resultSet));
