@@ -62,7 +62,7 @@
             <td><%=book.getAuthor().getName()%>
             </td>
             <td class="action"><a
-                    href="/removeBook?id=<%=book.getId()%>&userId=<%=book.getUser() != null ? book.getUser().getId() : ""%>">
+                    href="/removeBook?id=<%=book.getId()%>&userId=<%=book.getUser().getId()%>">
                 <img src="../../img/trash.svg" alt=""></a>
                 |
                 <a href="/updateBook?id=<%=book.getId()%>"><img src="../../img/update.svg"></a></td>

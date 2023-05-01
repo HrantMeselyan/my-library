@@ -12,6 +12,7 @@ import java.util.List;
 public class BookManager {
     private final Connection connection = DbConnectionProvider.getInstance().getConnection();
     private final AuthorManager authorManager = new AuthorManager();
+    private UserManager userManager = new UserManager();
 
 
     public List<Book> getAll(User user) {
@@ -47,7 +48,7 @@ public class BookManager {
             ps.setInt(3, book.getPrice());
             ps.setInt(4, book.getAuthor().getId());
             ps.setString(5, book.getPicName());
-            ps.setInt(6, book.getUser_id());
+            ps.setInt(6, book.getUser().getId());
             ps.executeUpdate();
             System.out.println("Book Inserted!");
         } catch (SQLException e) {
@@ -116,6 +117,7 @@ public class BookManager {
         book.setDescription(resultSet.getString("description"));
         book.setPrice(resultSet.getInt("price"));
         book.setAuthor(authorManager.getById(resultSet.getInt("author_id")));
+        book.setUser(userManager.getById(resultSet.getInt("user_id")));
         book.setPicName(resultSet.getString("img"));
         return book;
     }
