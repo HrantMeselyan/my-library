@@ -19,9 +19,9 @@ public class UserUpdateDeleteFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (request.getParameter("userId") == null){
+        if (request.getParameter("userId") == null) {
             response.sendRedirect("/");
-        } else if (user.getId() != Integer.parseInt(request.getParameter("userId"))) {
+        } else if (user.getId() != Integer.parseInt(request.getParameter("userId")) && user.getType() != Type.ADMIN) {
             response.sendRedirect("/");
         } else {
             filterChain.doFilter(request, response);
