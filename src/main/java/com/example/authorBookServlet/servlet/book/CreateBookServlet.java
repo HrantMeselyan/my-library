@@ -2,6 +2,7 @@ package com.example.authorBookServlet.servlet.book;
 
 import com.example.authorBookServlet.manager.AuthorManager;
 import com.example.authorBookServlet.manager.BookManager;
+import com.example.authorBookServlet.manager.UserManager;
 import com.example.authorBookServlet.model.Author;
 import com.example.authorBookServlet.model.Book;
 import com.example.authorBookServlet.model.User;
@@ -23,6 +24,7 @@ public class CreateBookServlet extends HttpServlet {
     private static final String UPLOAD_FOLDER = "C:\\Users\\dell\\IdeaProjects\\demo\\src\\images\\";
     private AuthorManager authorManager = new AuthorManager();
     private BookManager bookManager = new BookManager();
+    private UserManager userManager = new UserManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,7 +55,7 @@ public class CreateBookServlet extends HttpServlet {
         book.setAuthor(author);
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        book.setUser_id(user.getId());
+        book.setUser(userManager.getById(user.getId()));
         bookManager.save(book);
         resp.sendRedirect("/books");
     }

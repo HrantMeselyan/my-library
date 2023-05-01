@@ -21,7 +21,7 @@ public class RemoveBookServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Book book = bookManager.getById(id);
         if (book != null) {
-            if (book.getPicName() != null || !book.getPicName().equalsIgnoreCase("null")) {
+            if (book.getPicName() != null && !book.getPicName().equalsIgnoreCase("null")) {
                 File file = new File(SharedConstants.UPLOAD_FOLDER + book.getPicName());
                 if (file.exists()) {
                     file.delete();

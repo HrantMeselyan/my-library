@@ -42,7 +42,7 @@
         <% if (books != null && !books.isEmpty()) { %>
         <%for (Book book : books) { %>
         <tr>
-            <%if(book.getPicName() == null || book.getPicName() == "null") {%>
+            <%if (book.getPicName() == null || book.getPicName() == "null") {%>
             <td class="align-center"><a href=""><img src="../../img/default-image.webp" class="table-img"></a>
             </td>
             <% } else {%>
@@ -61,7 +61,9 @@
             </td>
             <td><%=book.getAuthor().getName()%>
             </td>
-            <td class="action"><a href="/removeBook?id=<%=book.getId()%>"><img src="../../img/trash.svg" alt=""></a>
+            <td class="action"><a
+                    href="/removeBook?id=<%=book.getId()%>&userId=<%=book.getUser() != null ? book.getUser().getId() : ""%>">
+                <img src="../../img/trash.svg" alt=""></a>
                 |
                 <a href="/updateBook?id=<%=book.getId()%>"><img src="../../img/update.svg"></a></td>
         </tr>

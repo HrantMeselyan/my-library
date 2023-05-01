@@ -2,6 +2,7 @@ package com.example.authorBookServlet.servlet.book;
 
 import com.example.authorBookServlet.manager.AuthorManager;
 import com.example.authorBookServlet.manager.BookManager;
+import com.example.authorBookServlet.manager.UserManager;
 import com.example.authorBookServlet.model.Author;
 import com.example.authorBookServlet.model.Book;
 import com.example.authorBookServlet.model.User;
@@ -40,7 +41,7 @@ public class UpdateBookServlet extends HttpServlet {
         int price = Integer.parseInt(req.getParameter("price"));
         Author author = authorManager.getById(authorId);
         User user = (User) req.getSession().getAttribute("user");
-        Book book = new Book(bookId, title, description, price, picName, author, user.getId());
+        Book book = new Book(bookId, title, description, price, picName, author, user);
         bookManager.update(book);
         resp.sendRedirect("/books");
     }
