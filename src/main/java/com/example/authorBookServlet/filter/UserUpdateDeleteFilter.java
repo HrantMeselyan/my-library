@@ -21,7 +21,7 @@ public class UserUpdateDeleteFilter implements Filter {
         User user = (User) session.getAttribute("user");
         if (request.getParameter("userId") == null){
             response.sendRedirect("/");
-        } else if (user.getId() != Integer.parseInt(request.getParameter("userId")) && user.getType() != Type.ADMIN) {
+        } else if (user.getId() != Integer.parseInt(request.getParameter("userId"))) {
             response.sendRedirect("/");
         } else {
             filterChain.doFilter(request, response);

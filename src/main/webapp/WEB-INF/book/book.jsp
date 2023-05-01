@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.authorBookServlet.model.Book" %>
+<%@ page import="com.example.authorBookServlet.model.User" %>
+<%@ page import="com.example.authorBookServlet.model.Type" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -65,7 +67,8 @@
                     href="/removeBook?id=<%=book.getId()%>&userId=<%=book.getUser().getId()%>">
                 <img src="../../img/trash.svg" alt=""></a>
                 |
-                <a href="/updateBook?id=<%=book.getId()%>"><img src="../../img/update.svg"></a></td>
+                <a href="/updateBook?id=<%=book.getId()%>&userId=<%=book.getUser().getId()%>"><img
+                        src="../../img/update.svg"></a></td>
         </tr>
         <%
                 }

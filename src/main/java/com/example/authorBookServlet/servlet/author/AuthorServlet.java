@@ -2,6 +2,7 @@ package com.example.authorBookServlet.servlet.author;
 
 import com.example.authorBookServlet.manager.AuthorManager;
 import com.example.authorBookServlet.model.Author;
+import com.example.authorBookServlet.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,10 @@ public class AuthorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Author> all = authorManager.getAll();
+        User user = (User) req.getSession().getAttribute("user");
         req.setAttribute("authors",all);
+        req.setAttribute("user",user);
+
         req.getRequestDispatcher("WEB-INF/author/author.jsp").forward(req,resp);
     }
 }

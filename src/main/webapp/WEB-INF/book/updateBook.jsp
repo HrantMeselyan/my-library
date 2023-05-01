@@ -12,6 +12,7 @@
 <h1>Update Book</h1>
 <form action="/updateBook" method="post" class="form-2 justify-content-center">
     <input type="hidden" name="bookId" value="<%=book.getId()%>">
+    <input type="hidden" name="userId" value="<%=book.getUser().getId()%>">
     <div class="form-row d-flex">
         <div class="form-group col-md-6">
             <label>Title</label>
