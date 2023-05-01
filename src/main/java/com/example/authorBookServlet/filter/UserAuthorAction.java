@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/authors","/updateAuthor","/createAuthor","/createBook"})
+@WebFilter(urlPatterns = {"/authors","/updateAuthor","/createAuthor"})
 public class UserAuthorAction implements Filter {
 
     @Override

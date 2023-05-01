@@ -1,6 +1,7 @@
 package com.example.authorBookServlet.manager;
 
 import com.example.authorBookServlet.db.DbConnectionProvider;
+import com.example.authorBookServlet.model.Type;
 import com.example.authorBookServlet.model.User;
 
 import java.sql.*;
@@ -63,6 +64,8 @@ public class UserManager {
                 .surname(resultSet.getString("surname"))
                 .email(resultSet.getString("email"))
                 .password(resultSet.getString("password"))
+                .type(Type.valueOf(resultSet.getString("type")))
                 .build();
     }
+
 }
