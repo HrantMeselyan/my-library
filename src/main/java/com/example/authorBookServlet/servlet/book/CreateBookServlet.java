@@ -1,5 +1,6 @@
 package com.example.authorBookServlet.servlet.book;
 
+import com.example.authorBookServlet.Constant.SharedConstants;
 import com.example.authorBookServlet.manager.AuthorManager;
 import com.example.authorBookServlet.manager.BookManager;
 import com.example.authorBookServlet.manager.UserManager;
@@ -21,7 +22,6 @@ import java.util.List;
         fileSizeThreshold = 1024 * 1024
 )
 public class CreateBookServlet extends HttpServlet {
-    private static final String UPLOAD_FOLDER = "C:\\Users\\dell\\IdeaProjects\\demo\\src\\images\\";
     private AuthorManager authorManager = new AuthorManager();
     private BookManager bookManager = new BookManager();
     private UserManager userManager = new UserManager();
@@ -45,7 +45,7 @@ public class CreateBookServlet extends HttpServlet {
         String picName = null;
         if (profilePicPart != null && profilePicPart.getSize() > 0) {
             picName = System.nanoTime() + "_" + profilePicPart.getSubmittedFileName();
-            profilePicPart.write(UPLOAD_FOLDER + picName);
+            profilePicPart.write(SharedConstants.UPLOAD_FOLDER + picName);
         }
         Author author = authorManager.getById(id);
         book.setTitle(title);

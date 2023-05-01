@@ -1,6 +1,6 @@
 package com.example.authorBookServlet.servlet.book;
 
-import com.example.authorBookServlet.Constants.SharedConstants;
+import com.example.authorBookServlet.Constant.SharedConstants;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
