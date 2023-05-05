@@ -2,6 +2,7 @@ package com.example.authorBookServlet.servlet;
 
 import com.example.authorBookServlet.manager.UserManager;
 import com.example.authorBookServlet.model.User;
+import com.example.authorBookServlet.util.EmailUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,19 +22,41 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
         String email = req.getParameter("email");
-        User user = userManager.getByEmail(email);
-        if (user == null) {
-            String name = req.getParameter("name");
-            String surname = req.getParameter("surname");
-            String password = req.getParameter("password");
-            userManager.save(User.builder()
-                    .name(name)
-                    .surname(surname)
-                    .email(email)
-                    .password(password)
-                    .build());
+        String password = req.getParameter("password");
+        String msg = "";
+        if (name == null || name.trim().equals("")) {
+            msg += "name is required ";
         }
-        resp.sendRedirect("/");
+        if (surname == null || surname.trim().equals("")) {
+            msg += "surname is required ";
+        }
+        if (email == null || email.trim().equals("")) {
+            msg += "email is required ";
+        } else if (!EmailUtil.patternMatches(email)) {
+            msg += "email format is required ";
+        }
+        if (password == null || password.trim().equals("")) {
+            msg += "password is required ";
+        } else if (password.length() < 6) {
+            msg += "password length must be more than 6";
+        }
+        if (msg.equals("")) {
+            User user = userManager.getByEmail(email);
+            if (user == null) {
+                userManager.save(User.builder()
+                        .name(name)
+                        .surname(surname)
+                        .email(email)
+                        .password(password)
+                        .build());
+            }
+            resp.sendRedirect("/");
+        } else {
+            req.setAttribute("msg", msg);
+            req.getRequestDispatcher("/register.jsp").forward(req, resp);
+        }
     }
 }

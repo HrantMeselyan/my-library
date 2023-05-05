@@ -3,10 +3,13 @@
 <head>
     <title>ItSpace</title>
     <%@ include file="header.jsp" %>
-<body>
-<%if(session.getAttribute("user") != null){
-    response.sendRedirect("/home");
-}%>
+<body class="register">
+<%
+    if (session.getAttribute("user") != null) {
+        response.sendRedirect("/home");
+    }
+    String msg = (String) request.getAttribute("msg");
+%>
 <section>
     <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
         <div class="container">
@@ -28,31 +31,37 @@
                     <div class="card">
                         <div class="card-body py-5 px-md-5">
                             <form action="/register" method="post">
+                                <%if (msg != null) {%>
+                                <span class="incorrect-login"><%=msg%></span>
+                                <%}%>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label class="form-label">Name</label>
-                                            <input type="text" placeholder="name" name="name" class="form-control"/>
+                                            <input type="text" placeholder="name" name="name" required
+                                                   class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <label class="form-label">Surname</label>
-                                            <input type="text" placeholder="surname" name="surname" class="form-control"/>
+                                            <input type="text" placeholder="surname" name="surname" required
+                                                   class="form-control"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Email</label>
-                                    <input type="email" placeholder="email" name="email" class="form-control"/>
+                                    <input type="email" placeholder="email" name="email" required class="form-control"/>
                                 </div>
                                 <div class="form-outline">
                                     <label class="form-label">Password</label>
-                                    <input type="password" placeholder="password" name="password" class="form-control"/>
+                                    <input type="password" placeholder="password" name="password" required
+                                           class="form-control"/>
                                 </div>
                                 <div class="d-flex justify-content-center mb-4">
                                     <button type="submit" class="btn btn-primary btn-block mb-4">
-                                      Register
+                                        Register
                                     </button>
                                 </div>
                             </form>

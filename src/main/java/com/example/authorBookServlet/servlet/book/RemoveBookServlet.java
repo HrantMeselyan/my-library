@@ -1,6 +1,6 @@
 package com.example.authorBookServlet.servlet.book;
 
-import com.example.authorBookServlet.Constant.SharedConstants;
+import com.example.authorBookServlet.constant.SharedConstants;
 import com.example.authorBookServlet.manager.BookManager;
 import com.example.authorBookServlet.model.Book;
 
