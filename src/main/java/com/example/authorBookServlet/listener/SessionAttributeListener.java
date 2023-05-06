@@ -16,7 +16,7 @@ public class SessionAttributeListener implements HttpSessionAttributeListener {
         User attrValue = (User) event.getValue();
         if (attrName.equalsIgnoreCase("user")) {
             System.out.println("User with " + attrValue.getEmail() +
-                    "email logged in at" + new Date() + "sessionID=" + id);
+                    "email was sign in  at" + new Date() + "sessionId= " + id);
         }
     }
 }
